@@ -544,7 +544,7 @@ h2 { font: 400 clamp(32px, 4vw, 46px)/1.3 var(--serif-zh); letter-spacing: .1em;
 }
 
 /* the English nav labels no longer fit beside the brand */
-@media (max-width: 519px) {
+@media (max-width: 599px) {
   .site-nav small { display: none; }
 }
 
