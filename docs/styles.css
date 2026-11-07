@@ -368,7 +368,9 @@ h2 { font: 400 clamp(32px, 4vw, 46px)/1.3 var(--serif-zh); letter-spacing: .1em;
   color: var(--umber-soft);
   font-size: 12px;
   letter-spacing: .08em;
+  line-height: 1.8;
 }
+.colophon p + p { margin-top: 4px; }
 
 /* Lightbox */
 
