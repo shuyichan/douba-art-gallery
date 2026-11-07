@@ -84,7 +84,7 @@ ul { list-style: none; }
   background: inherit;
 }
 
-.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand { display: flex; align-items: center; text-decoration: none; }
 
 /* the logo file is a mark on opaque white with wide margins: crop it, then let multiply drop the white */
 .brand-mark { display: block; width: 34px; height: 48px; overflow: hidden; position: relative; }
@@ -96,9 +96,6 @@ ul { list-style: none; }
   max-width: none;
   mix-blend-mode: multiply;
 }
-
-.brand-name { font: 500 19px/1 var(--serif); letter-spacing: .04em; }
-.brand-short { display: none; font: 500 18px/1 var(--serif-zh); letter-spacing: .1em; white-space: nowrap; }
 
 .site-nav { display: flex; gap: clamp(18px, 3vw, 40px); white-space: nowrap; }
 .site-nav a {
@@ -529,12 +526,6 @@ h2 { font: 400 clamp(32px, 4vw, 46px)/1.3 var(--serif-zh); letter-spacing: .1em;
   .lb-meta div + div { margin-top: 12px; }
   .lb-nav { margin: 32px 0 0 -14px; }
   .lb-close { top: 24px; right: 28px; }
-}
-
-@media (max-width: 420px) {
-  .brand-name { display: none; }
-  .brand-short { display: block; }
-  .brand { gap: 8px; }
 }
 
 /* the English nav labels no longer fit beside the brand */
