@@ -1,23 +1,41 @@
 /* 斗八 Douba Art Gallery: filters, grid, lightbox */
 
-// works.json is the only copy of the work records. series.json names them by id.
-const [WORKS, SERIES] = await Promise.all([
+// works.json is the only copy of the work records. Series files name them by id.
+const [WORKS, TRAVEL_SERIES, SPRING_SERIES] = await Promise.all([
   fetch("works.json").then((response) => (response.ok ? response.json() : [])).catch(() => []),
   fetch("series.json").then((response) => (response.ok ? response.json() : null)).catch(() => null),
+  fetch("series-spring-walk.json").then((response) => (response.ok ? response.json() : null)).catch(() => null),
 ]);
 
 const page = document.body.dataset.page === "series" ? "series" : "home";
 const byId = new Map(WORKS.map((work) => [work.id, work]));
-const seriesIds = Array.isArray(SERIES?.workIds) ? SERIES.workIds : [];
-const seriesWorks = seriesIds.map((id) => byId.get(id));
-const seriesReady = Boolean(SERIES)
-  && typeof SERIES.title === "string"
-  && typeof SERIES.intro === "string"
-  && seriesWorks.length > 0
-  && seriesWorks.every(Boolean)
-  && new Set(seriesIds).size === seriesIds.length
-  && seriesIds.includes(SERIES.coverId);
-const seriesIdSet = new Set(seriesReady ? seriesIds : []);
+
+function resolveSeries(raw) {
+  const workIds = Array.isArray(raw?.workIds) ? raw.workIds : [];
+  const works = workIds.map((id) => byId.get(id));
+  const ready = Boolean(raw)
+    && typeof raw.title === "string"
+    && typeof raw.intro === "string"
+    && works.length > 0
+    && works.every(Boolean)
+    && new Set(workIds).size === workIds.length
+    && workIds.includes(raw.coverId);
+  return { raw, workIds, works, ready };
+}
+
+const catalogs = {
+  travel: resolveSeries(TRAVEL_SERIES),
+  "spring-walk": resolveSeries(SPRING_SERIES),
+};
+const activeSeries = catalogs[document.body.dataset.series || "travel"];
+const seriesReady = page !== "series" || Boolean(activeSeries?.ready);
+const seriesWorks = page === "series" && activeSeries?.ready ? activeSeries.works : [];
+const seriesLinkFor = new Map();
+for (const [key, state] of Object.entries(catalogs)) {
+  if (!state.ready) continue;
+  const href = key === "spring-walk" ? "series-spring-walk.html" : "series.html";
+  for (const id of state.workIds) seriesLinkFor.set(id, href);
+}
 
 const CATEGORIES = [
   ["旅行包", "Travel Bags"],
@@ -44,7 +62,7 @@ const cover = (work) => work.images[0];
 const altOf = (work) => `斗八作品《${work.title_zh}》，${work.category}`;
 
 let activeCategory = null;
-let visible = page === "series" ? (seriesReady ? seriesWorks : []) : WORKS;
+let visible = page === "series" ? seriesWorks : WORKS;
 
 /* Works */
 
@@ -115,10 +133,11 @@ function createTile(work, index) {
   button.append(frame, label);
   li.append(button);
 
-  if (page === "home" && seriesIdSet.has(work.id)) {
+  const seriesHref = seriesLinkFor.get(work.id);
+  if (page === "home" && seriesHref) {
     const seriesLink = document.createElement("a");
     seriesLink.className = "work-series";
-    seriesLink.href = "series.html";
+    seriesLink.href = seriesHref;
     seriesLink.textContent = "系列作品";
     li.append(seriesLink);
   }
@@ -129,23 +148,30 @@ const listed = page === "series" ? visible : WORKS;
 const tiles = listed.map(createTile);
 grid?.append(...tiles);
 
-if (seriesReady) {
-  document.querySelector(".series-title")?.replaceChildren(document.createTextNode(SERIES.title));
-  const coverPhoto = cover(byId.get(SERIES.coverId));
-  const coverImg = $("series-cover");
+for (const feature of document.querySelectorAll(".series-feature[data-series]")) {
+  const state = catalogs[feature.dataset.series];
+  if (!state?.ready) continue;
+  feature.querySelector(".series-title")?.replaceChildren(document.createTextNode(state.raw.title));
+  const count = feature.querySelector(".series-count");
+  if (count) count.textContent = `${state.works.length} 件作品`;
+  const coverPhoto = cover(byId.get(state.raw.coverId));
+  const coverImg = feature.querySelector("img");
   if (coverImg && coverPhoto) {
     coverImg.src = coverPhoto.src;
     coverImg.width = coverPhoto.w;
     coverImg.height = coverPhoto.h;
-    coverImg.alt = byId.get(SERIES.coverId).title_zh;
-    const coverSource = $("series-cover-webp");
+    coverImg.alt = byId.get(state.raw.coverId).title_zh;
+    const coverSource = feature.querySelector("source");
     if (coverSource) coverSource.srcset = coverPhoto.src_webp;
   }
+}
+
+if (page === "series" && activeSeries?.ready) {
   const seriesHeading = $("series-heading");
   const seriesIntro = $("series-intro");
-  if (seriesHeading) seriesHeading.textContent = SERIES.title;
-  if (seriesIntro) seriesIntro.textContent = SERIES.intro;
-  if (page === "series") document.title = `${SERIES.title} — 斗八 Douba Art Gallery`;
+  if (seriesHeading) seriesHeading.textContent = activeSeries.raw.title;
+  if (seriesIntro) seriesIntro.textContent = activeSeries.raw.intro;
+  document.title = `${activeSeries.raw.title} — 斗八 Douba Art Gallery`;
 }
 
 /* Even columns. A short category keeps the usual tile width and sits centered. */

@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap">
-  <link rel="stylesheet" href="styles.css?v=20261107-series">
+  <link rel="stylesheet" href="styles.css?v=20261107-spring">
 </head>
 <body>
   <a class="skip-link" href="#gallery">跳至作品 Skip to works</a>
@@ -58,7 +58,7 @@
     </section>
 
     <section class="series-entry" aria-labelledby="series-entry-title">
-      <a class="series-feature" href="series.html">
+      <a class="series-feature" href="series.html" data-series="travel">
         <picture>
           <source id="series-cover-webp" srcset="assets/07-旅行包-初春.webp" type="image/webp">
           <img id="series-cover" src="assets/07-旅行包-初春.jpg" alt="初春" width="1200" height="1200">
@@ -67,6 +67,21 @@
           <p class="series-kicker">系列作品</p>
           <h2 class="series-title" id="series-entry-title">媽媽師傅的旅行藝術創作包</h2>
           <p class="series-count">8 件作品</p>
+          <p class="series-go">走進這個系列</p>
+        </div>
+      </a>
+    </section>
+
+    <section class="series-entry" aria-labelledby="spring-entry-title">
+      <a class="series-feature" href="series-spring-walk.html" data-series="spring-walk">
+        <picture>
+          <source srcset="assets/spring-01-01.webp" type="image/webp">
+          <img src="assets/spring-01-01.jpg" alt="春日散策 01" width="1200" height="1600">
+        </picture>
+        <div class="series-copy">
+          <p class="series-kicker">系列作品</p>
+          <h2 class="series-title" id="spring-entry-title">春日散策</h2>
+          <p class="series-count">5 件作品</p>
           <p class="series-go">走進這個系列</p>
         </div>
       </a>
@@ -149,6 +164,6 @@
     </button>
   </dialog>
 
-  <script type="module" src="app.js?v=20261107-series"></script>
+  <script type="module" src="app.js?v=20261107-spring"></script>
 </body>
 </html>
