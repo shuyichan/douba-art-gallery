@@ -372,6 +372,54 @@
     ]
   },
   {
+    "id": "bc2018-green",
+    "category": "書衣",
+    "title_zh": "墨綠六角紋拼布書衣",
+    "title_en": "Dark Green Book Cover with Hexagon Print Patch",
+    "year": "2018",
+    "images": [
+      {
+        "src": "assets/bookcover-2018-01.jpg",
+        "src_webp": "assets/bookcover-2018-01.webp",
+        "w": 1086,
+        "h": 724
+      },
+      {
+        "src": "assets/bookcover-2018-02.jpg",
+        "src_webp": "assets/bookcover-2018-02.webp",
+        "w": 1086,
+        "h": 724
+      }
+    ]
+  },
+  {
+    "id": "bc2018-blue",
+    "category": "書衣",
+    "title_zh": "藍色碎花拼布書衣",
+    "title_en": "Blue Book Cover with Floral Print Patch",
+    "year": "2018",
+    "images": [
+      {
+        "src": "assets/bookcover-2018-03.jpg",
+        "src_webp": "assets/bookcover-2018-03.webp",
+        "w": 1086,
+        "h": 724
+      },
+      {
+        "src": "assets/bookcover-2018-04.jpg",
+        "src_webp": "assets/bookcover-2018-04.webp",
+        "w": 1086,
+        "h": 724
+      },
+      {
+        "src": "assets/bookcover-2018-05.jpg",
+        "src_webp": "assets/bookcover-2018-05.webp",
+        "w": 1086,
+        "h": 724
+      }
+    ]
+  },
+  {
     "id": "bc01",
     "title_zh": "灰藍花卉拼布書衣",
     "title_en": "Slate Blue Floral Patchwork Book Cover",
