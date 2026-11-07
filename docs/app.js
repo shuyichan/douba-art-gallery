@@ -5,6 +5,9 @@ const SERIES_SOURCES = [
   ["travel", "series.json", "series.html"],
   ["spring-walk", "series-spring-walk.json", "series-spring-walk.html"],
   ["bookcovers", "series-bookcovers.json", "series-bookcovers.html"],
+  ["shoulder-fish", "series-shoulder-fish.json", "series-shoulder-fish.html"],
+  ["orange", "series-orange.json", "series-orange.html"],
+  ["green", "series-green.json", "series-green.html"],
 ];
 const [WORKS, ...seriesPayloads] = await Promise.all([
   fetch("works.json").then((response) => (response.ok ? response.json() : [])).catch(() => []),
