@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>美感拼接化妝小包 — 斗八 Douba Art Gallery</title>
+  <meta name="description" content="收錄十二件 2021 年化妝小包">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="美感拼接化妝小包">
+  <meta property="og:description" content="收錄十二件 2021 年化妝小包">
+  <meta name="theme-color" content="#F7F4EF">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css?v=20261108-cosmetic">
+</head>
+<body data-page="series" data-series="cosmetic">
+  <a class="skip-link" href="#series-works">跳至系列作品</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="斗八 Douba，回到首頁">
+      <span class="brand-mark"><img src="assets/logo-douba.png" alt="" width="400" height="400"></span>
+    </a>
+    <nav class="site-nav" aria-label="主要導覽">
+      <a href="index.html#gallery"><span>作品</span><small>Works</small></a>
+      <a href="index.html#about"><span>關於</span><small>About</small></a>
+      <a href="#contact"><span>聯絡</span><small>Contact</small></a>
+      <a href="https://doubabag.com/"><span>斗八官網</span><small>Official Website</small></a>
+    </nav>
+  </header>
+  <main>
+    <section class="series-page gallery" aria-labelledby="series-heading">
+      <p class="series-back"><a href="index.html#gallery">返回系列</a></p>
+      <p class="series-kicker">系列作品</p>
+      <h1 id="series-heading">美感拼接化妝小包</h1>
+      <p class="series-intro" id="series-intro">收錄十二件 2021 年化妝小包</p>
+      <p class="result" id="result" role="status">12 件作品</p>
+      <ul class="works" id="series-works"></ul>
+    </section>
+  </main>
+  <footer id="contact" class="contact" aria-labelledby="contact-title">
+    <div class="contact-inner">
+      <div class="contact-intro">
+        <p class="eyebrow"><span lang="en">Contact</span></p>
+        <h2 id="contact-title">聯絡斗八</h2>
+        <p>想聊聊作品，歡迎到 Instagram 走走。</p>
+      </div>
+      <ul class="contact-list">
+        <li><span lang="en">Website</span><a href="https://doubabag.com" target="_blank" rel="noopener">doubabag.com</a></li>
+        <li><span lang="en">Instagram</span><a href="https://www.instagram.com/doubabag/" target="_blank" rel="noopener">@doubabag</a></li>
+      </ul>
+    </div>
+    <div class="colophon">
+      <p>© 2026 斗八 Douba. All rights reserved.</p>
+      <p>作品與照片未經授權，請勿轉載或使用</p>
+    </div>
+  </footer>
+  <dialog class="lightbox" id="lightbox" aria-labelledby="lb-title">
+    <div class="lb-stage" id="lb-stage">
+      <picture>
+        <source id="lb-source" type="image/webp">
+        <img id="lb-img" alt="">
+      </picture>
+      <div class="lb-photos" id="lb-photos" hidden>
+        <button type="button" id="lb-photo-prev" aria-label="上一張照片">‹</button>
+        <p id="lb-photo-count" aria-live="polite"></p>
+        <button type="button" id="lb-photo-next" aria-label="下一張照片">›</button>
+      </div>
+    </div>
+    <div class="lb-label">
+      <p class="lb-count" id="lb-count"></p>
+      <h2 class="lb-title" id="lb-title"></h2>
+      <p class="lb-en" id="lb-en" lang="en"></p>
+      <dl class="lb-meta">
+        <div><dt>類別 <span lang="en">Category</span></dt><dd id="lb-category"></dd></div>
+      </dl>
+      <div class="lb-nav">
+        <button type="button" id="lb-prev" aria-label="上一件作品">←</button>
+        <button type="button" id="lb-next" aria-label="下一件作品">→</button>
+      </div>
+    </div>
+    <button class="lb-close" type="button" id="lb-close" aria-label="關閉" autofocus>
+      <span lang="en">Close</span> ×
+    </button>
+  </dialog>
+  <script type="module" src="app.js?v=20261108-cosmetic"></script>
+</body>
+</html>

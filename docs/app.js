@@ -9,6 +9,7 @@ const SERIES_SOURCES = [
   ["orange", "series-orange.json", "series-orange.html"],
   ["green", "series-green.json", "series-green.html"],
   ["chopstick", "series-chopstick.json", "series-chopstick.html"],
+  ["cosmetic", "series-cosmetic.json", "series-cosmetic.html"],
 ];
 const [WORKS, ...seriesPayloads] = await Promise.all([
   fetch("works.json").then((response) => (response.ok ? response.json() : [])).catch(() => []),
@@ -198,6 +199,43 @@ if (page === "series" && activeSeries?.ready) {
   if (seriesHeading) seriesHeading.textContent = activeSeries.raw.title;
   if (seriesIntro) seriesIntro.textContent = activeSeries.raw.intro;
   document.title = `${activeSeries.raw.title} — 斗八 Douba Art Gallery`;
+  const gallery = activeSeries.raw.gallery;
+  const grid = $("series-works");
+  if (gallery?.length && grid) {
+    const block = document.createElement("div");
+    block.className = "series-gallery-block";
+    const label = document.createElement("p");
+    label.className = "series-kicker";
+    label.textContent = "系列照片";
+    const list = document.createElement("ul");
+    list.className = "series-gallery";
+    gallery.forEach((photo, index) => {
+      const item = document.createElement("li");
+      const button = document.createElement("button");
+      button.type = "button";
+      button.setAttribute("aria-label", photo.alt || activeSeries.raw.title);
+      const picture = document.createElement("picture");
+      if (photo.src_webp) {
+        const source = document.createElement("source");
+        source.type = "image/webp";
+        source.srcset = photo.src_webp;
+        picture.append(source);
+      }
+      const img = document.createElement("img");
+      img.src = photo.src;
+      img.alt = photo.alt || "";
+      img.width = photo.w;
+      img.height = photo.h;
+      img.decoding = "async";
+      picture.append(img);
+      button.append(picture);
+      button.addEventListener("click", () => openGallery(index, button));
+      item.append(button);
+      list.append(item);
+    });
+    block.append(label, list);
+    grid.before(block);
+  }
 }
 
 /* Even columns. A short category keeps the usual tile width and sits centered. */
@@ -399,6 +437,20 @@ function openLightbox(work, trigger) {
   sequence = visible.includes(work) ? visible : WORKS;
   opener = trigger;
   show(sequence.indexOf(work));
+  lightbox.showModal();
+  document.documentElement.style.overflow = "hidden";
+}
+
+function openGallery(index, trigger) {
+  const photos = activeSeries?.raw?.gallery || [];
+  sequence = [{
+    title_zh: "系列照片",
+    category: "化妝包",
+    year: "2021",
+    images: photos,
+  }];
+  opener = trigger;
+  show(0, index);
   lightbox.showModal();
   document.documentElement.style.overflow = "hidden";
 }

@@ -177,6 +177,21 @@ ul { list-style: none; }
 }
 .series-card-count { color: var(--ink-soft); font: 400 14px/1.5 var(--sans); }
 .series-card:hover .series-card-name { color: var(--terracotta); }
+.series-gallery-block { margin: 4px 0 36px; }
+.series-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+.series-gallery button { display: block; width: 100%; }
+.series-gallery img { width: 100%; height: auto; }
+@media (min-width: 640px) {
+  .series-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) {
+  .series-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 
 .year-mark {
   grid-column: 1 / -1;

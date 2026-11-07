@@ -1,0 +1,70 @@
+{
+  "title": "美感拼接化妝小包",
+  "intro": "收錄十二件 2021 年化妝小包",
+  "coverId": "cp02",
+  "coverImage": {
+    "src": "assets/cp-00-1.jpg",
+    "src_webp": "assets/cp-00-1.webp",
+    "w": 1200,
+    "h": 1200,
+    "alt": "美感拼接化妝小包"
+  },
+  "gallery": [
+    {
+      "src": "assets/cp-00-1.jpg",
+      "src_webp": "assets/cp-00-1.webp",
+      "w": 1200,
+      "h": 1200,
+      "alt": "美感拼接化妝小包"
+    },
+    {
+      "src": "assets/cp-00-2.jpg",
+      "src_webp": "assets/cp-00-2.webp",
+      "w": 1200,
+      "h": 1600,
+      "alt": "美感拼接化妝小包"
+    },
+    {
+      "src": "assets/cp-01-1.jpg",
+      "src_webp": "assets/cp-01-1.webp",
+      "w": 1200,
+      "h": 1200,
+      "alt": "美感拼接化妝小包"
+    },
+    {
+      "src": "assets/cp-01-2.jpg",
+      "src_webp": "assets/cp-01-2.webp",
+      "w": 1200,
+      "h": 1200,
+      "alt": "美感拼接化妝小包"
+    },
+    {
+      "src": "assets/cp-01-3.jpg",
+      "src_webp": "assets/cp-01-3.webp",
+      "w": 1200,
+      "h": 1200,
+      "alt": "美感拼接化妝小包"
+    },
+    {
+      "src": "assets/cp-01-6.jpg",
+      "src_webp": "assets/cp-01-6.webp",
+      "w": 1200,
+      "h": 1200,
+      "alt": "美感拼接化妝小包"
+    }
+  ],
+  "workIds": [
+    "cp12",
+    "cp13",
+    "cp02",
+    "cp03",
+    "cp04",
+    "cp05",
+    "cp06",
+    "cp07",
+    "cp08",
+    "cp09",
+    "cp10",
+    "cp11"
+  ]
+}
