@@ -91,7 +91,14 @@ function createTile(work, index) {
     <span class="work-title"></span>
     <span class="work-en" lang="en"></span>
     <span class="work-meta"></span>`;
-  label.querySelector(".work-title").textContent = work.title_zh;
+  const title = label.querySelector(".work-title");
+  title.textContent = work.title_zh;
+  if (work.year) {
+    const year = document.createElement("span");
+    year.className = "work-year";
+    year.textContent = work.year;
+    title.after(year);
+  }
   label.querySelector(".work-en").textContent = work.title_en ?? "";
   label.querySelector(".work-meta").textContent = work.category;
 
@@ -255,7 +262,14 @@ function show(workIndex, photo = 0) {
     : altOf(work);
 
   $("lb-count").textContent = `${current + 1} / ${sequence.length}`;
-  $("lb-title").textContent = work.title_zh;
+  const lbTitle = $("lb-title");
+  lbTitle.replaceChildren(document.createTextNode(work.title_zh));
+  if (work.year) {
+    const year = document.createElement("span");
+    year.className = "lb-year";
+    year.textContent = work.year;
+    lbTitle.append(year);
+  }
   $("lb-en").textContent = work.title_en ?? "";
   $("lb-category").textContent = `${work.category} ${CATEGORY_EN[work.category]}`;
 
