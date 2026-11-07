@@ -1,10 +1,14 @@
 /* 斗八 Douba Art Gallery: filters, grid, lightbox */
 
 // works.json is the only copy of the work records. Series files name them by id.
-const [WORKS, TRAVEL_SERIES, SPRING_SERIES] = await Promise.all([
+const SERIES_SOURCES = [
+  ["travel", "series.json", "series.html"],
+  ["spring-walk", "series-spring-walk.json", "series-spring-walk.html"],
+  ["bookcovers", "series-bookcovers.json", "series-bookcovers.html"],
+];
+const [WORKS, ...seriesPayloads] = await Promise.all([
   fetch("works.json").then((response) => (response.ok ? response.json() : [])).catch(() => []),
-  fetch("series.json").then((response) => (response.ok ? response.json() : null)).catch(() => null),
-  fetch("series-spring-walk.json").then((response) => (response.ok ? response.json() : null)).catch(() => null),
+  ...SERIES_SOURCES.map(([, file]) => fetch(file).then((response) => (response.ok ? response.json() : null)).catch(() => null)),
 ]);
 
 const page = document.body.dataset.page === "series" ? "series" : "home";
@@ -23,17 +27,14 @@ function resolveSeries(raw) {
   return { raw, workIds, works, ready };
 }
 
-const catalogs = {
-  travel: resolveSeries(TRAVEL_SERIES),
-  "spring-walk": resolveSeries(SPRING_SERIES),
-};
+const catalogs = Object.fromEntries(SERIES_SOURCES.map(([key], index) => [key, resolveSeries(seriesPayloads[index])]));
 const activeSeries = catalogs[document.body.dataset.series || "travel"];
 const seriesReady = page !== "series" || Boolean(activeSeries?.ready);
 const seriesWorks = page === "series" && activeSeries?.ready ? activeSeries.works : [];
 const seriesLinkFor = new Map();
-for (const [key, state] of Object.entries(catalogs)) {
+for (const [key, , href] of SERIES_SOURCES) {
+  const state = catalogs[key];
   if (!state.ready) continue;
-  const href = key === "spring-walk" ? "series-spring-walk.html" : "series.html";
   for (const id of state.workIds) seriesLinkFor.set(id, href);
 }
 
@@ -145,23 +146,42 @@ function createTile(work, index) {
 }
 
 const listed = page === "series" ? visible : WORKS;
-const tiles = listed.map(createTile);
-grid?.append(...tiles);
+let tiles = [];
+if (grid) {
+  if (page === "series" && document.body.dataset.series === "bookcovers") {
+    let lastYear = "";
+    listed.forEach((work, index) => {
+      if (work.year && work.year !== lastYear) {
+        const mark = document.createElement("li");
+        mark.className = "year-mark";
+        mark.textContent = work.year;
+        grid.append(mark);
+        lastYear = work.year;
+      }
+      const tile = createTile(work, index);
+      tiles.push(tile);
+      grid.append(tile);
+    });
+  } else {
+    tiles = listed.map(createTile);
+    grid.append(...tiles);
+  }
+}
 
-for (const feature of document.querySelectorAll(".series-feature[data-series]")) {
-  const state = catalogs[feature.dataset.series];
+for (const card of document.querySelectorAll(".series-card[data-series]")) {
+  const state = catalogs[card.dataset.series];
   if (!state?.ready) continue;
-  feature.querySelector(".series-title")?.replaceChildren(document.createTextNode(state.raw.title));
-  const count = feature.querySelector(".series-count");
+  card.querySelector(".series-card-name")?.replaceChildren(document.createTextNode(state.raw.title));
+  const count = card.querySelector(".series-card-count");
   if (count) count.textContent = `${state.works.length} 件作品`;
   const coverPhoto = cover(byId.get(state.raw.coverId));
-  const coverImg = feature.querySelector("img");
+  const coverImg = card.querySelector("img");
   if (coverImg && coverPhoto) {
     coverImg.src = coverPhoto.src;
     coverImg.width = coverPhoto.w;
     coverImg.height = coverPhoto.h;
     coverImg.alt = byId.get(state.raw.coverId).title_zh;
-    const coverSource = feature.querySelector("source");
+    const coverSource = card.querySelector("source");
     if (coverSource) coverSource.srcset = coverPhoto.src_webp;
   }
 }
@@ -194,8 +214,10 @@ function layout() {
   }
 }
 
-new ResizeObserver(layout).observe(grid.parentElement);
-document.fonts?.ready.then(layout);
+if (grid) {
+  new ResizeObserver(layout).observe(grid.parentElement);
+  document.fonts?.ready.then(layout);
+}
 
 /* Filters */
 

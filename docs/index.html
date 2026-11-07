@@ -14,10 +14,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap">
-  <link rel="stylesheet" href="styles.css?v=20261107-home">
+  <link rel="stylesheet" href="styles.css?v=20261107-series-grid">
 </head>
 <body>
-  <a class="skip-link" href="#gallery">跳至作品 Skip to works</a>
+  <a class="skip-link" href="#gallery">跳至系列作品</a>
 
   <header class="site-header">
     <a class="brand" href="#top" aria-label="斗八 Douba，回到頂端">
@@ -32,45 +32,45 @@
   </header>
 
   <main id="top">
-    <section class="series-entry" aria-labelledby="series-entry-title">
-      <a class="series-feature" href="series.html" data-series="travel">
-        <picture>
-          <source id="series-cover-webp" srcset="assets/07-旅行包-初春.webp" type="image/webp">
-          <img id="series-cover" src="assets/07-旅行包-初春.jpg" alt="初春" width="1200" height="1200">
-        </picture>
-        <div class="series-copy">
-          <p class="series-kicker">系列作品</p>
-          <h2 class="series-title" id="series-entry-title">媽媽師傅的旅行藝術創作包</h2>
-          <p class="series-count">8 件作品</p>
-          <p class="series-go">走進這個系列</p>
-        </div>
-      </a>
-    </section>
-
-    <section class="series-entry" aria-labelledby="spring-entry-title">
-      <a class="series-feature" href="series-spring-walk.html" data-series="spring-walk">
-        <picture>
-          <source srcset="assets/spring-01-01.webp" type="image/webp">
-          <img src="assets/spring-01-01.jpg" alt="春日散策 01" width="1200" height="1600">
-        </picture>
-        <div class="series-copy">
-          <p class="series-kicker">系列作品</p>
-          <h2 class="series-title" id="spring-entry-title">春日散策</h2>
-          <p class="series-count">5 件作品</p>
-          <p class="series-go">走進這個系列</p>
-        </div>
-      </a>
-    </section>
-
-    <section id="gallery" class="gallery" aria-labelledby="gallery-title">
-      <header class="section-head">
-        <p class="eyebrow"><span lang="en">Works</span></p>
-        <h2 id="gallery-title">作品</h2>
-        <p class="result" id="result" role="status"></p>
-      </header>
-      <div class="filters" id="filters" role="group" aria-label="依類別篩選作品"></div>
-      <ul class="works" id="works"></ul>
-      <noscript><p class="noscript">作品展示需要啟用 JavaScript。也可以到 <a href="https://www.instagram.com/doubabag/">Instagram @doubabag</a> 看作品。</p></noscript>
+    <section id="gallery" class="series-grid" aria-label="系列作品">
+      <ul class="series-cards">
+        <li>
+          <a class="series-card" href="series.html" data-series="travel">
+            <span class="series-card-frame">
+              <picture>
+                <source srcset="assets/07-旅行包-初春.webp" type="image/webp">
+                <img src="assets/07-旅行包-初春.jpg" alt="初春" width="1200" height="1200">
+              </picture>
+            </span>
+            <span class="series-card-name">媽媽師傅的旅行藝術創作包</span>
+            <span class="series-card-count">8 件作品</span>
+          </a>
+        </li>
+        <li>
+          <a class="series-card" href="series-spring-walk.html" data-series="spring-walk">
+            <span class="series-card-frame">
+              <picture>
+                <source srcset="assets/spring-01-01.webp" type="image/webp">
+                <img src="assets/spring-01-01.jpg" alt="春日散策 01" width="1200" height="1600">
+              </picture>
+            </span>
+            <span class="series-card-name">春日散策</span>
+            <span class="series-card-count">5 件作品</span>
+          </a>
+        </li>
+        <li>
+          <a class="series-card" href="series-bookcovers.html" data-series="bookcovers">
+            <span class="series-card-frame">
+              <picture>
+                <source srcset="assets/bookcover-2018-01.webp" type="image/webp">
+                <img src="assets/bookcover-2018-01.jpg" alt="墨綠六角紋拼布書衣" width="1086" height="724">
+              </picture>
+            </span>
+            <span class="series-card-name">書衣系列</span>
+            <span class="series-card-count">19 件作品</span>
+          </a>
+        </li>
+      </ul>
     </section>
 
     <section id="about" class="about" aria-labelledby="about-title">
@@ -139,6 +139,6 @@
     </button>
   </dialog>
 
-  <script type="module" src="app.js?v=20261107-spring"></script>
+  <script type="module" src="app.js?v=20261107-series-grid"></script>
 </body>
 </html>
