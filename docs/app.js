@@ -1,9 +1,23 @@
 /* 斗八 Douba Art Gallery: filters, grid, lightbox */
 
-// works.json is the only copy of the data. Relative URL, so any subpath works.
-const WORKS = await fetch("works.json")
-  .then((response) => (response.ok ? response.json() : []))
-  .catch(() => []);
+// works.json is the only copy of the work records. series.json names them by id.
+const [WORKS, SERIES] = await Promise.all([
+  fetch("works.json").then((response) => (response.ok ? response.json() : [])).catch(() => []),
+  fetch("series.json").then((response) => (response.ok ? response.json() : null)).catch(() => null),
+]);
+
+const page = document.body.dataset.page === "series" ? "series" : "home";
+const byId = new Map(WORKS.map((work) => [work.id, work]));
+const seriesIds = Array.isArray(SERIES?.workIds) ? SERIES.workIds : [];
+const seriesWorks = seriesIds.map((id) => byId.get(id));
+const seriesReady = Boolean(SERIES)
+  && typeof SERIES.title === "string"
+  && typeof SERIES.intro === "string"
+  && seriesWorks.length > 0
+  && seriesWorks.every(Boolean)
+  && new Set(seriesIds).size === seriesIds.length
+  && seriesIds.includes(SERIES.coverId);
+const seriesIdSet = new Set(seriesReady ? seriesIds : []);
 
 const CATEGORIES = [
   ["旅行包", "Travel Bags"],
@@ -22,7 +36,7 @@ const CATEGORIES = [
 const CATEGORY_EN = Object.fromEntries(CATEGORIES);
 
 const $ = (id) => document.getElementById(id);
-const grid = $("works");
+const grid = $("works") ?? $("series-works");
 const filters = $("filters");
 const result = $("result");
 
@@ -30,13 +44,14 @@ const cover = (work) => work.images[0];
 const altOf = (work) => `斗八作品《${work.title_zh}》，${work.category}`;
 
 let activeCategory = null;
-let visible = WORKS;
+let visible = page === "series" ? (seriesReady ? seriesWorks : []) : WORKS;
 
 /* Works */
 
 function createTile(work, index) {
   const li = document.createElement("li");
   li.className = "work";
+  li.dataset.id = work.id;
   li.dataset.category = work.category;
 
   const button = document.createElement("button");
@@ -99,11 +114,39 @@ function createTile(work, index) {
 
   button.append(frame, label);
   li.append(button);
+
+  if (page === "home" && seriesIdSet.has(work.id)) {
+    const seriesLink = document.createElement("a");
+    seriesLink.className = "work-series";
+    seriesLink.href = "series.html";
+    seriesLink.textContent = "系列作品";
+    li.append(seriesLink);
+  }
   return li;
 }
 
-const tiles = WORKS.map(createTile);
-grid.append(...tiles);
+const listed = page === "series" ? visible : WORKS;
+const tiles = listed.map(createTile);
+grid?.append(...tiles);
+
+if (seriesReady) {
+  document.querySelector(".series-title")?.replaceChildren(document.createTextNode(SERIES.title));
+  const coverPhoto = cover(byId.get(SERIES.coverId));
+  const coverImg = $("series-cover");
+  if (coverImg && coverPhoto) {
+    coverImg.src = coverPhoto.src;
+    coverImg.width = coverPhoto.w;
+    coverImg.height = coverPhoto.h;
+    coverImg.alt = byId.get(SERIES.coverId).title_zh;
+    const coverSource = $("series-cover-webp");
+    if (coverSource) coverSource.srcset = coverPhoto.src_webp;
+  }
+  const seriesHeading = $("series-heading");
+  const seriesIntro = $("series-intro");
+  if (seriesHeading) seriesHeading.textContent = SERIES.title;
+  if (seriesIntro) seriesIntro.textContent = SERIES.intro;
+  if (page === "series") document.title = `${SERIES.title} — 斗八 Douba Art Gallery`;
+}
 
 /* Even columns. A short category keeps the usual tile width and sits centered. */
 
@@ -181,39 +224,47 @@ function setCategory(category) {
   }, still ? 0 : 220);
 }
 
-const allChip = chip("全部", WORKS.length, null);
-allChip.dataset.category = "";
-filters.append(allChip);
-for (const [category] of CATEGORIES) {
-  const count = WORKS.filter((w) => w.category === category).length;
-  if (!count) continue;
-  const button = chip(category, count, category);
-  button.dataset.category = category;
-  filters.append(button);
-}
-
-applyCategory();
-
-if (!WORKS.length) {
-  result.textContent = "作品暫時無法載入，請重新整理頁面。";
-  filters.hidden = true;
-  $("facts").hidden = true;
+if (page === "home" && filters) {
+  const allChip = chip("全部", WORKS.length, null);
+  allChip.dataset.category = "";
+  filters.append(allChip);
+  for (const [category] of CATEGORIES) {
+    const count = WORKS.filter((w) => w.category === category).length;
+    if (!count) continue;
+    const button = chip(category, count, category);
+    button.dataset.category = category;
+    filters.append(button);
+  }
+  applyCategory();
+  if (!WORKS.length) {
+    result.textContent = "作品暫時無法載入，請重新整理頁面。";
+    filters.hidden = true;
+    const facts = $("facts");
+    if (facts) facts.hidden = true;
+  }
+} else if (page === "series") {
+  if (!seriesReady && result) result.textContent = "系列暫時無法載入，請重新整理頁面。";
+  else if (result) result.textContent = `${visible.length} 件作品`;
+  layout();
 }
 
 /* About facts come from the data, so they cannot drift from it */
 
-const facts = [
-  ["作品 Works", WORKS.length],
-  ["類別 Categories", new Set(WORKS.map((w) => w.category)).size],
-];
-for (const [term, value] of facts) {
-  const div = document.createElement("div");
-  const dt = document.createElement("dt");
-  const dd = document.createElement("dd");
-  dt.textContent = term;
-  dd.textContent = value;
-  div.append(dt, dd);
-  $("facts").append(div);
+const factsList = $("facts");
+if (factsList) {
+  const facts = [
+    ["作品 Works", WORKS.length],
+    ["類別 Categories", new Set(WORKS.map((w) => w.category)).size],
+  ];
+  for (const [term, value] of facts) {
+    const div = document.createElement("div");
+    const dt = document.createElement("dt");
+    const dd = document.createElement("dd");
+    dt.textContent = term;
+    dd.textContent = value;
+    div.append(dt, dd);
+    factsList.append(div);
+  }
 }
 
 /* Lightbox */
@@ -325,7 +376,7 @@ $("lb-stage").addEventListener("touchend", (event) => {
   if (Math.abs(dx) > 48) step(dx < 0 ? 1 : -1);
 });
 
-document.querySelector(".hero-open").addEventListener("click", (event) => {
+document.querySelector(".hero-open")?.addEventListener("click", (event) => {
   const work = WORKS.find((w) => w.id === event.currentTarget.dataset.work);
   if (work) openLightbox(work, event.currentTarget);
 });
