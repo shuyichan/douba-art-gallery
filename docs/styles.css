@@ -151,9 +151,10 @@ ul { list-style: none; }
 .placard-en { display: block; margin-top: 2px; color: var(--ink-soft); font: 400 13px/1.4 var(--sans); }
 .placard-meta { display: block; margin-top: 2px; color: var(--ink-soft); font: 400 12px/1.4 var(--sans); letter-spacing: .04em; }
 
-/* Series entry sits between the hero and the full gallery */
+/* Series entries sit under the header, ahead of the full gallery */
 
-.series-entry { padding: 40px var(--gutter) 8px; }
+.series-entry { padding: 20px var(--gutter) 8px; }
+.series-entry + .series-entry { padding-top: 28px; }
 .series-feature {
   display: grid;
   gap: 22px;
