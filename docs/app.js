@@ -8,6 +8,7 @@ const SERIES_SOURCES = [
   ["shoulder-fish", "series-shoulder-fish.json", "series-shoulder-fish.html"],
   ["orange", "series-orange.json", "series-orange.html"],
   ["green", "series-green.json", "series-green.html"],
+  ["chopstick", "series-chopstick.json", "series-chopstick.html"],
 ];
 const [WORKS, ...seriesPayloads] = await Promise.all([
   fetch("works.json").then((response) => (response.ok ? response.json() : [])).catch(() => []),
@@ -48,6 +49,7 @@ const CATEGORIES = [
   ["化妝包", "Cosmetic Pouches"],
   ["手機套", "Phone Sleeves"],
   ["杯套", "Cup Sleeves"],
+  ["筷套", "Chopstick Sleeves"],
   ["束口袋", "Drawstring Bags"],
   ["拼布包", "Patchwork Bags"],
   ["斜背包", "Crossbody Bags"],
@@ -177,13 +179,14 @@ for (const card of document.querySelectorAll(".series-card[data-series]")) {
   card.querySelector(".series-card-name")?.replaceChildren(document.createTextNode(state.raw.title));
   const count = card.querySelector(".series-card-count");
   if (count) count.textContent = `${state.works.length} 件作品`;
-  const coverPhoto = cover(byId.get(state.raw.coverId));
+  const coverWork = byId.get(state.raw.coverId);
+  const coverPhoto = state.raw.coverImage || cover(coverWork);
   const coverImg = card.querySelector("img");
   if (coverImg && coverPhoto) {
     coverImg.src = coverPhoto.src;
     coverImg.width = coverPhoto.w;
     coverImg.height = coverPhoto.h;
-    coverImg.alt = byId.get(state.raw.coverId).title_zh;
+    coverImg.alt = coverPhoto.alt || coverWork.title_zh;
     const coverSource = card.querySelector("source");
     if (coverSource) coverSource.srcset = coverPhoto.src_webp;
   }

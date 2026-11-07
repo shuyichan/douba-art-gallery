@@ -1,0 +1,13 @@
+{
+  "title": "碎布的相遇筷套",
+  "intro": "收錄六件 2021 年筷套",
+  "coverId": "cs01",
+  "coverImage": {
+    "src": "assets/cs-00-1.jpg",
+    "src_webp": "assets/cs-00-1.webp",
+    "w": 1200,
+    "h": 1200,
+    "alt": "碎布的相遇筷套"
+  },
+  "workIds": ["cs01", "cs02", "cs03", "cs04", "cs05", "cs06"]
+}
