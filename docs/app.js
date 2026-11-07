@@ -1,4 +1,4 @@
-/* 斗八 Douba Art Gallery: filters, masonry, lightbox */
+/* 斗八 Douba Art Gallery: filters, grid, lightbox */
 
 // works.json is the only copy of the data. Relative URL, so any subpath works.
 const WORKS = await fetch("works.json")
@@ -20,10 +20,6 @@ const CATEGORIES = [
   ["書衣", "Book Covers"],
 ];
 const CATEGORY_EN = Object.fromEntries(CATEGORIES);
-
-const ROW = 4;       // matches grid-auto-rows in styles.css
-const GAP_Y = 48;    // space under each work
-const STAGGER = 56;  // the middle column hangs lower on wide screens
 
 const $ = (id) => document.getElementById(id);
 const grid = $("works");
@@ -64,10 +60,6 @@ function createTile(work, index) {
   img.height = photo.h;
   img.decoding = "async";
   if (index > 2) img.loading = "lazy";
-  if (photo.crop) {
-    frame.classList.add("has-crop");
-    img.style.aspectRatio = photo.crop;
-  }
   if (img.complete) img.classList.add("is-loaded");
   else img.addEventListener("load", () => img.classList.add("is-loaded"), { once: true });
 
@@ -87,20 +79,23 @@ function createTile(work, index) {
 
   const label = document.createElement("span");
   label.className = "work-label";
-  label.innerHTML = `
-    <span class="work-title"></span>
-    <span class="work-en" lang="en"></span>
-    <span class="work-meta"></span>`;
-  const title = label.querySelector(".work-title");
+  const title = document.createElement("span");
+  title.className = "work-title";
   title.textContent = work.title_zh;
+  label.append(title);
   if (work.year) {
     const year = document.createElement("span");
     year.className = "work-year";
     year.textContent = work.year;
-    title.after(year);
+    label.append(year);
   }
-  label.querySelector(".work-en").textContent = work.title_en ?? "";
-  label.querySelector(".work-meta").textContent = work.category;
+  if (work.title_en) {
+    const en = document.createElement("span");
+    en.className = "work-en";
+    en.lang = "en";
+    en.textContent = work.title_en;
+    label.append(en);
+  }
 
   button.append(frame, label);
   li.append(button);
@@ -110,15 +105,13 @@ function createTile(work, index) {
 const tiles = WORKS.map(createTile);
 grid.append(...tiles);
 
-/* Masonry: each tile goes to the shortest column; DOM order stays the reading order */
+/* Even columns. A short category keeps the usual tile width and sits centered. */
 
 const wide = matchMedia("(min-width: 900px)");  // same breakpoint as styles.css
 
 function layout() {
   const base = wide.matches ? 3 : 2;
   const cols = Math.min(base, visible.length);
-
-  // A short category keeps the usual tile width and sits centered
   const container = grid.parentElement;
   const styles = getComputedStyle(container);
   const inner = container.clientWidth - parseFloat(styles.paddingLeft) - parseFloat(styles.paddingRight);
@@ -126,17 +119,9 @@ function layout() {
   const tileWidth = (inner - gap * (base - 1)) / base;
   grid.style.setProperty("--cols", cols);
   grid.style.maxWidth = cols < base ? `${tileWidth * cols + gap * (cols - 1)}px` : "";
-
-  const heights = Array.from({ length: cols }, (_, i) =>
-    cols >= 3 && i === 1 ? Math.round(STAGGER / ROW) : 0);
-
   for (const tile of tiles) {
-    if (tile.hidden) continue;
-    const col = heights.indexOf(Math.min(...heights));
-    const span = Math.ceil((tile.firstElementChild.offsetHeight + GAP_Y) / ROW);
-    tile.style.gridColumn = col + 1;
-    tile.style.gridRow = `${heights[col] + 1} / span ${span}`;
-    heights[col] += span;
+    tile.style.gridColumn = "";
+    tile.style.gridRow = "";
   }
 }
 
@@ -243,7 +228,7 @@ let sequence = visible;
 let opener = null;
 
 function ratioOf(photo) {
-  return photo.crop ?? `${photo.w} / ${photo.h}`;
+  return `${photo.w} / ${photo.h}`;
 }
 
 function show(workIndex, photo = 0) {
