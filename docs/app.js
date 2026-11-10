@@ -10,6 +10,7 @@ const SERIES_SOURCES = [
   ["green", "series-green.json", "series-green.html"],
   ["chopstick", "series-chopstick.json", "series-chopstick.html"],
   ["cosmetic", "series-cosmetic.json", "series-cosmetic.html"],
+  ["bottle-bag", "series-bottle-bag.json", "series-bottle-bag.html"],
 ];
 const [WORKS, ...seriesPayloads] = await Promise.all([
   fetch("works.json").then((response) => (response.ok ? response.json() : [])).catch(() => []),
@@ -46,6 +47,7 @@ for (const [key, , href] of SERIES_SOURCES) {
 const CATEGORIES = [
   ["旅行包", "Travel Bags"],
   ["手提包", "Totes"],
+  ["水壺提袋", "Bottle Bags"],
   ["手拿包", "Clutches"],
   ["化妝包", "Cosmetic Pouches"],
   ["手機套", "Phone Sleeves"],
@@ -66,7 +68,9 @@ const filters = $("filters");
 const result = $("result");
 
 const cover = (work) => work.images[0];
-const altOf = (work) => `斗八作品《${work.title_zh}》，${work.category}`;
+const altOf = (work) => work.title_zh
+  ? `斗八作品《${work.title_zh}》，${work.category}`
+  : `斗八作品，${work.category}`;
 
 let activeCategory = null;
 let visible = page === "series" ? seriesWorks : WORKS;
@@ -119,10 +123,12 @@ function createTile(work, index) {
 
   const label = document.createElement("span");
   label.className = "work-label";
-  const title = document.createElement("span");
-  title.className = "work-title";
-  title.textContent = work.title_zh;
-  label.append(title);
+  if (work.title_zh) {
+    const title = document.createElement("span");
+    title.className = "work-title";
+    title.textContent = work.title_zh;
+    label.append(title);
+  }
   if (work.year) {
     const year = document.createElement("span");
     year.className = "work-year";
@@ -443,10 +449,11 @@ function openLightbox(work, trigger) {
 
 function openGallery(index, trigger) {
   const photos = activeSeries?.raw?.gallery || [];
+  const sample = activeSeries?.works?.[0];
   sequence = [{
     title_zh: "系列照片",
-    category: "化妝包",
-    year: "2021",
+    category: activeSeries?.raw?.galleryCategory || sample?.category || "化妝包",
+    year: activeSeries?.raw?.galleryYear ?? sample?.year ?? "2021",
     images: photos,
   }];
   opener = trigger;
