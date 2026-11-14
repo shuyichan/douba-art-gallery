@@ -3,214 +3,148 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>斗八 Douba Art Gallery</title>
-  <meta name="description" content="斗八以布料、色彩與縫線，創作日常可以使用的藝術品。">
+  <title>Shuyi Studio Art Gallery</title>
+  <meta name="description" content="深夜裡，布料和顏色碰巧遇在一起。這裡記錄的是還在進行中的拼布，同一塊布長大了，編號不變，只多記一個日期。">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Douba Art Gallery">
-  <meta property="og:description" content="斗八以布料、色彩與縫線，創作日常可以使用的藝術品。">
-  <meta name="theme-color" content="#F7F4EF">
+  <meta property="og:title" content="Shuyi Studio Art Gallery">
+  <meta property="og:description" content="深夜裡，布料和顏色碰巧遇在一起。這裡記錄的是還在進行中的拼布，同一塊布長大了，編號不變，只多記一個日期。">
+  <meta name="theme-color" content="#ffffff">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="assets/midnight-no01.webp" type="image/webp">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap">
-  <link rel="stylesheet" href="styles.css?v=20261110-bottle">
+  <link rel="stylesheet" href="styles.css?v=20261114-midnight">
 </head>
 <body>
-  <a class="skip-link" href="#gallery">跳至系列作品</a>
+  <a class="skip-link" href="#works">跳至作品</a>
 
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="斗八 Douba，回到頂端">
-      <span class="brand-mark"><img src="assets/logo-douba.png" alt="" width="400" height="400"></span>
-    </a>
-    <nav class="site-nav" aria-label="主要導覽">
-      <a href="#gallery"><span>作品</span><small>Works</small></a>
-      <a href="#about"><span>關於</span><small>About</small></a>
-      <a href="#contact"><span>聯絡</span><small>Contact</small></a>
-      <a href="https://doubabag.com/"><span>斗八官網</span><small>Official Website</small></a>
-    </nav>
+    <div class="page">
+      <a class="wordmark" href="#top">Shuyi Studio Art Gallery</a>
+    </div>
   </header>
 
   <main id="top">
-    <section id="gallery" class="series-grid" aria-label="系列作品">
-      <ul class="series-cards">
-        <li>
-          <a class="series-card" href="series.html" data-series="travel">
-            <span class="series-card-frame">
+    <div class="page">
+      <ul class="works" id="works">
+        <li class="work">
+          <button type="button" class="work-open" data-id="mn01">
+            <span class="work-frame">
               <picture>
-                <source srcset="assets/07-旅行包-初春.webp" type="image/webp">
-                <img src="assets/07-旅行包-初春.jpg" alt="初春" width="1200" height="1200">
+                <source srcset="assets/midnight-no01.webp" type="image/webp">
+                <img src="assets/midnight-no01.jpg" alt="Shuyi Studio Art Gallery，No.01，2026.11" width="1462" height="1600" decoding="async" fetchpriority="high">
               </picture>
             </span>
-            <span class="series-card-name">媽媽師傅的旅行藝術創作包</span>
-            <span class="series-card-count">8 件作品</span>
-          </a>
+            <span class="work-label">
+              <span class="work-title">No.01</span>
+              <span class="work-date">2026.11</span>
+            </span>
+          </button>
         </li>
-        <li>
-          <a class="series-card" href="series-spring-walk.html" data-series="spring-walk">
-            <span class="series-card-frame">
+        <li class="work">
+          <button type="button" class="work-open" data-id="mn02">
+            <span class="work-frame">
               <picture>
-                <source srcset="assets/spring-01-01.webp" type="image/webp">
-                <img src="assets/spring-01-01.jpg" alt="春日散策 01" width="1200" height="1600">
+                <source srcset="assets/midnight-no02.webp" type="image/webp">
+                <img src="assets/midnight-no02.jpg" alt="Shuyi Studio Art Gallery，No.02，2026.11" width="1253" height="1600" decoding="async" loading="lazy">
               </picture>
             </span>
-            <span class="series-card-name">春日散策</span>
-            <span class="series-card-count">5 件作品</span>
-          </a>
+            <span class="work-label">
+              <span class="work-title">No.02</span>
+              <span class="work-date">2026.11</span>
+            </span>
+          </button>
         </li>
-        <li>
-          <a class="series-card" href="series-bookcovers.html" data-series="bookcovers">
-            <span class="series-card-frame">
+        <li class="work">
+          <button type="button" class="work-open" data-id="mn03">
+            <span class="work-frame">
               <picture>
-                <source srcset="assets/bookcover-2018-01.webp" type="image/webp">
-                <img src="assets/bookcover-2018-01.jpg" alt="墨綠六角紋拼布書衣" width="1086" height="724">
+                <source srcset="assets/midnight-no03.webp" type="image/webp">
+                <img src="assets/midnight-no03.jpg" alt="Shuyi Studio Art Gallery，No.03，2026.11" width="1482" height="1600" decoding="async" loading="lazy">
               </picture>
             </span>
-            <span class="series-card-name">書衣系列</span>
-            <span class="series-card-count">19 件作品</span>
-          </a>
+            <span class="work-label">
+              <span class="work-title">No.03</span>
+              <span class="work-date">2026.11</span>
+            </span>
+          </button>
         </li>
-        <li>
-          <a class="series-card" href="series-shoulder-fish.html" data-series="shoulder-fish">
-            <span class="series-card-frame">
+        <li class="work">
+          <button type="button" class="work-open" data-id="mn04">
+            <span class="work-frame">
               <picture>
-                <source srcset="assets/pt-A-01.webp" type="image/webp">
-                <img src="assets/pt-A-01.jpg" alt="肩背拼接－魚" width="1200" height="1200">
+                <source srcset="assets/midnight-no04.webp" type="image/webp">
+                <img src="assets/midnight-no04.jpg" alt="Shuyi Studio Art Gallery，No.04，2026.11" width="1418" height="1600" decoding="async" loading="lazy">
               </picture>
             </span>
-            <span class="series-card-name">肩背拼接－魚</span>
-            <span class="series-card-count">1 件作品</span>
-          </a>
+            <span class="work-label">
+              <span class="work-title">No.04</span>
+              <span class="work-date">2026.11</span>
+            </span>
+          </button>
         </li>
-        <li>
-          <a class="series-card" href="series-orange.html" data-series="orange">
-            <span class="series-card-frame">
+        <li class="work">
+          <button type="button" class="work-open" data-id="mn05">
+            <span class="work-frame">
               <picture>
-                <source srcset="assets/pt-B-01.webp" type="image/webp">
-                <img src="assets/pt-B-01.jpg" alt="小巧生活鮮橘" width="1200" height="1200">
+                <source srcset="assets/midnight-no05.webp" type="image/webp">
+                <img src="assets/midnight-no05.jpg" alt="Shuyi Studio Art Gallery，No.05，2026.11" width="1401" height="1600" decoding="async" loading="lazy">
               </picture>
             </span>
-            <span class="series-card-name">小巧生活鮮橘</span>
-            <span class="series-card-count">1 件作品</span>
-          </a>
-        </li>
-        <li>
-          <a class="series-card" href="series-green.html" data-series="green">
-            <span class="series-card-frame">
-              <picture>
-                <source srcset="assets/11-手提包-綠創作.webp" type="image/webp">
-                <img src="assets/11-手提包-綠創作.jpg" alt="綠創作" width="1000" height="1000">
-              </picture>
+            <span class="work-label">
+              <span class="work-title">No.05</span>
+              <span class="work-date">2026.11</span>
             </span>
-            <span class="series-card-name">綠創作</span>
-            <span class="series-card-count">1 件作品</span>
-          </a>
-        </li>
-        <li>
-          <a class="series-card" href="series-chopstick.html" data-series="chopstick">
-            <span class="series-card-frame">
-              <picture>
-                <source srcset="assets/cs-00-1.webp" type="image/webp">
-                <img src="assets/cs-00-1.jpg" alt="碎布的相遇筷套" width="1200" height="1200">
-              </picture>
-            </span>
-            <span class="series-card-name">碎布的相遇筷套</span>
-            <span class="series-card-count">6 件作品</span>
-          </a>
-        </li>
-        <li>
-          <a class="series-card" href="series-cosmetic.html" data-series="cosmetic">
-            <span class="series-card-frame">
-              <picture>
-                <source srcset="assets/cp-00-1.webp" type="image/webp">
-                <img src="assets/cp-00-1.jpg" alt="美感拼接化妝小包" width="1200" height="1200">
-              </picture>
-            </span>
-            <span class="series-card-name">美感拼接化妝小包</span>
-            <span class="series-card-count">12 件作品</span>
-          </a>
-        </li>
-        <li>
-          <a class="series-card" href="series-bottle-bag.html" data-series="bottle-bag">
-            <span class="series-card-frame">
-              <picture>
-                <source srcset="assets/bb-17-01.webp" type="image/webp">
-                <img src="assets/bb-17-01.jpg" alt="水壺提袋系列" width="1600" height="1600">
-              </picture>
-            </span>
-            <span class="series-card-name">水壺提袋系列</span>
-            <span class="series-card-count">11 件作品</span>
-          </a>
+          </button>
         </li>
       </ul>
-    </section>
 
-    <section id="about" class="about" aria-labelledby="about-title">
-      <figure class="about-work">
-        <picture>
-          <source srcset="assets/18-化妝包-藍色櫻花繡花.webp" type="image/webp">
-          <img src="assets/18-化妝包-藍色櫻花繡花.jpg" alt="藍色布料放在縫紉機下，白線正繡出枝葉的圖樣，一隻手輕扶著布" width="1000" height="1000" loading="lazy" decoding="async">
-        </picture>
-        <figcaption>製作過程 <span lang="en">In the making</span></figcaption>
-      </figure>
-      <div class="about-text">
-        <p class="eyebrow"><span lang="en">About</span></p>
-        <h2 id="about-title">讓布料走進日常</h2>
-        <p>斗八以布料、色彩與縫線，創作日常可以使用的藝術品。</p>
-        <p>每一件作品都是手縫與機縫交會的結果——旅行包、手提包、化妝包、手機套、杯套……讓布料走進日常。</p>
-        <p class="about-en" lang="en">Douba makes art for everyday use from cloth, color and thread. Each piece is where hand stitching meets the sewing machine.</p>
-        <dl class="facts" id="facts"></dl>
-      </div>
-    </section>
+      <section class="series-note" aria-labelledby="series-title">
+        <h1 id="series-title">深夜裡遇見</h1>
+        <p class="series-en" lang="en">Met at Midnight</p>
+        <p class="series-lead" id="series-intro">深夜裡，布料和顏色碰巧遇在一起。這裡記錄的是還在進行中的拼布，同一塊布長大了，編號不變，只多記一個日期。</p>
+      </section>
+    </div>
   </main>
 
-  <footer id="contact" class="contact" aria-labelledby="contact-title">
-    <div class="contact-inner">
-      <div class="contact-intro">
-        <p class="eyebrow"><span lang="en">Contact</span></p>
-        <h2 id="contact-title">聯絡斗八</h2>
-        <p>想聊聊作品，歡迎到 Instagram 走走。</p>
-      </div>
+  <footer id="contact" class="contact">
+    <div class="page">
+      <h2 id="contact-title">聯絡 Shuyi</h2>
       <ul class="contact-list">
-        <li><span lang="en">Website</span><a href="https://doubabag.com" target="_blank" rel="noopener">doubabag.com</a></li>
-        <li><span lang="en">Instagram</span><a href="https://www.instagram.com/doubabag/" target="_blank" rel="noopener">@doubabag</a></li>
+        <li><a href="https://doubabag.com" target="_blank" rel="noopener">doubabag.com</a></li>
+        <li><a href="https://www.instagram.com/doubabag/" target="_blank" rel="noopener">Instagram @doubabag</a></li>
       </ul>
-    </div>
-    <div class="colophon">
-      <p>© 2026 斗八 Douba. All rights reserved.</p>
-      <p>作品與照片未經授權，請勿轉載或使用</p>
+      <div class="colophon">
+        <p>© 2026 Shuyi Studio. All rights reserved.</p>
+        <p>作品與照片未經授權，請勿轉載或使用</p>
+      </div>
     </div>
   </footer>
 
   <dialog class="lightbox" id="lightbox" aria-labelledby="lb-title">
-    <div class="lb-stage" id="lb-stage">
-      <picture>
-        <source id="lb-source" type="image/webp">
-        <img id="lb-img" alt="">
-      </picture>
-      <div class="lb-photos" id="lb-photos" hidden>
-        <button type="button" id="lb-photo-prev" aria-label="上一張照片">‹</button>
-        <p id="lb-photo-count" aria-live="polite"></p>
-        <button type="button" id="lb-photo-next" aria-label="下一張照片">›</button>
-      </div>
-    </div>
-    <div class="lb-label">
-      <p class="lb-count" id="lb-count"></p>
-      <h2 class="lb-title" id="lb-title"></h2>
-      <p class="lb-en" id="lb-en" lang="en"></p>
-      <dl class="lb-meta">
-        <div><dt>類別 <span lang="en">Category</span></dt><dd id="lb-category"></dd></div>
-      </dl>
+    <button class="lb-close" type="button" id="lb-close" aria-label="關閉">×</button>
+    <div class="lb-layout">
+      <figure class="lb-figure">
+        <picture>
+          <source id="lb-source" type="image/webp">
+          <img id="lb-img" alt="">
+        </picture>
+        <figcaption class="lb-caption">
+          <p class="lb-count" id="lb-count"></p>
+          <p class="lb-title" id="lb-title"></p>
+          <p class="lb-date" id="lb-date"></p>
+          <div class="lb-dates" id="lb-dates" hidden></div>
+        </figcaption>
+      </figure>
       <div class="lb-nav">
         <button type="button" id="lb-prev" aria-label="上一件作品">←</button>
         <button type="button" id="lb-next" aria-label="下一件作品">→</button>
       </div>
     </div>
-    <button class="lb-close" type="button" id="lb-close" aria-label="關閉" autofocus>
-      <span lang="en">Close</span> ×
-    </button>
   </dialog>
 
-  <script type="module" src="app.js?v=20261110-bottle"></script>
+  <script type="module" src="app.js?v=20261114-midnight"></script>
 </body>
 </html>

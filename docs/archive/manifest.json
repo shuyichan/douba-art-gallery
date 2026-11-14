@@ -1,0 +1,16 @@
+{
+  "archivedOn": "2026-11-14",
+  "note": "The public gallery shows only 深夜裡遇見. Earlier works and series stay here so they can be restored. Image files were not moved; they remain in docs/assets/. The original series pages remain at their old paths but are not linked, and they redirect to the homepage.",
+  "works": "archive/works.json",
+  "series": [
+    {"key": "travel", "file": "archive/series/series.json", "page": "series.html", "title": "媽媽師傅的旅行藝術創作包"},
+    {"key": "spring-walk", "file": "archive/series/series-spring-walk.json", "page": "series-spring-walk.html", "title": "春日散策"},
+    {"key": "bookcovers", "file": "archive/series/series-bookcovers.json", "page": "series-bookcovers.html", "title": "書衣系列"},
+    {"key": "shoulder-fish", "file": "archive/series/series-shoulder-fish.json", "page": "series-shoulder-fish.html", "title": "肩背拼接－魚"},
+    {"key": "orange", "file": "archive/series/series-orange.json", "page": "series-orange.html", "title": "小巧生活鮮橘"},
+    {"key": "green", "file": "archive/series/series-green.json", "page": "series-green.html", "title": "綠創作"},
+    {"key": "chopstick", "file": "archive/series/series-chopstick.json", "page": "series-chopstick.html", "title": "碎布的相遇筷套"},
+    {"key": "cosmetic", "file": "archive/series/series-cosmetic.json", "page": "series-cosmetic.html", "title": "美感拼接化妝小包"},
+    {"key": "bottle-bag", "file": "archive/series/series-bottle-bag.json", "page": "series-bottle-bag.html", "title": "水壺提袋系列"}
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "title": "水壺提袋系列",
+  "intro": "收錄十一件水壺提袋",
+  "coverId": "bb-17",
+  "coverImage": {
+    "src": "assets/bb-17-01.jpg",
+    "src_webp": "assets/bb-17-01.webp",
+    "w": 1600,
+    "h": 1600,
+    "alt": "水壺提袋系列"
+  },
+  "galleryCategory": "水壺提袋",
+  "galleryYear": "",
+  "gallery": [
+    {
+      "src": "assets/bb-00-1.jpg",
+      "src_webp": "assets/bb-00-1.webp",
+      "w": 1600,
+      "h": 1200,
+      "alt": "水壺提袋系列"
+    }
+  ],
+  "workIds": [
+    "bb-17",
+    "bb-06",
+    "bb-07",
+    "bb-08",
+    "bb-09",
+    "bb-10",
+    "bb-11",
+    "bb-12",
+    "bb-13",
+    "bb-14",
+    "bb-16"
+  ]
+}
