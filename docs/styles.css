@@ -136,12 +136,14 @@ main { padding-bottom: 24px; }
   font: 500 14px/1.4 var(--serif);
   letter-spacing: 0.16em;
 }
+.contact section:first-child h2 { font-size: 16px; }
 .contact section + section { margin-top: 32px; }
 .contact section p {
   max-width: 36em;
   margin-top: 8px;
   font: 400 15px/1.85 var(--serif);
 }
+.contact section:first-child p { color: var(--ink); }
 .contact-list { margin-top: 12px; }
 .contact-list li { margin: 6px 0; }
 .contact-list a {
@@ -155,6 +157,7 @@ main { padding-bottom: 24px; }
   margin-top: 28px;
   font: 400 12px/1.7 var(--sans);
   letter-spacing: 0.03em;
+  text-align: center;
 }
 
 .lightbox {
@@ -264,6 +267,13 @@ main { padding-bottom: 24px; }
   .page { width: min(1080px, calc(100% - 96px)); }
   .works { grid-template-columns: 1fr 1fr; gap: 80px 48px; margin-top: 28px; }
   .series-note { margin-top: 96px; }
+  .contact .page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 48px;
+  }
+  .contact section:first-child,
+  .contact .colophon { grid-column: 1 / -1; }
   .lb-layout { padding: 48px 72px 36px; }
   .lb-figure img { max-height: calc(100dvh - 180px); }
 }
