@@ -1,6 +1,7 @@
 /* Shuyi Studio Art Gallery
    A work keeps one number. Each entry in `stages` is a date plus a photograph.
-   Append a new entry when the same piece is sewn further. The last entry is the one on view.
+   The grid and the opened view show the newest date first, then older dates.
+   A later entry with the same date counts as newer.
 */
 
 const SITE = "Shuyi Studio Art Gallery";
@@ -40,14 +41,46 @@ async function init() {
   wireLightbox(ordered.length ? ordered : readStatic(grid));
 }
 
+function dateParts(date) {
+  const match = /^(\d{4})\.(\d{1,2})(?:\.(\d{1,2}))?$/.exec(String(date).trim());
+  if (!match) return null;
+  return [Number(match[1]), Number(match[2]), match[3] ? Number(match[3]) : 0];
+}
+
+function compareDates(a, b) {
+  const pa = dateParts(a);
+  const pb = dateParts(b);
+  if (pa && pb) {
+    for (let i = 0; i < pa.length; i += 1) {
+      if (pa[i] !== pb[i]) return pa[i] - pb[i];
+    }
+    return 0;
+  }
+  if (pa) return 1;
+  if (pb) return -1;
+  const left = String(a);
+  const right = String(b);
+  if (left < right) return -1;
+  if (left > right) return 1;
+  return 0;
+}
+
+// Newest date first. The same date keeps JSON order, with the later entry newer.
 function stagesOf(work) {
   if (!Array.isArray(work?.stages)) return [];
-  return work.stages.filter((stage) => stage && stage.src && stage.date);
+  return work.stages
+    .map((stage, index) => ({ stage, index }))
+    .filter(({ stage }) => stage && stage.src && stage.date)
+    .sort((a, b) => {
+      const byDate = compareDates(b.stage.date, a.stage.date);
+      if (byDate !== 0) return byDate;
+      return b.index - a.index;
+    })
+    .map(({ stage }) => stage);
 }
 
 function latest(work) {
-  const stages = stagesOf(work);
-  return stages[stages.length - 1] || null;
+  return stagesOf(work)[0] || null;
 }
 
 function altOf(work, stage) {
@@ -150,7 +183,7 @@ function wireLightbox(works) {
     current = (workIndex + works.length) % works.length;
     const work = works[current];
     const stages = stagesOf(work);
-    stageIndex = nextStage == null ? stages.length - 1 : (nextStage + stages.length) % stages.length;
+    stageIndex = nextStage == null ? 0 : (nextStage + stages.length) % stages.length;
     const stage = stages[stageIndex];
 
     lbSource.srcset = stage.src_webp || "";
