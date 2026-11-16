@@ -63,5 +63,47 @@
         "h": 1600
       }
     ]
+  },
+  {
+    "id": "sc01",
+    "title_zh": "No.01",
+    "alt": "Shuyi Studio，碎布的對話，No.01",
+    "stages": [
+      {
+        "date": "2026.11",
+        "src": "assets/scraps-no01.jpg",
+        "src_webp": "assets/scraps-no01.webp",
+        "w": 1199,
+        "h": 1600
+      }
+    ]
+  },
+  {
+    "id": "sc02",
+    "title_zh": "No.02",
+    "alt": "Shuyi Studio，碎布的對話，No.02",
+    "stages": [
+      {
+        "date": "2026.11",
+        "src": "assets/scraps-no02.jpg",
+        "src_webp": "assets/scraps-no02.webp",
+        "w": 899,
+        "h": 1600
+      }
+    ]
+  },
+  {
+    "id": "sc03",
+    "title_zh": "No.03",
+    "alt": "Shuyi Studio，碎布的對話，No.03",
+    "stages": [
+      {
+        "date": "2026.11",
+        "src": "assets/scraps-no03.jpg",
+        "src_webp": "assets/scraps-no03.webp",
+        "w": 1199,
+        "h": 1600
+      }
+    ]
   }
 ]

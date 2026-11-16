@@ -6,16 +6,17 @@
 
 const SITE = "Shuyi Studio Art Gallery";
 
-if (document.body.dataset.page === "series") {
+const seriesFile = document.body.dataset.seriesFile || "";
+if (document.body.dataset.page === "series" && !seriesFile) {
   location.replace("index.html");
-} else {
-  await init();
+} else if (seriesFile) {
+  await init(seriesFile);
 }
 
-async function init() {
+async function init(file) {
   const [works, series] = await Promise.all([
     fetch("works.json").then((response) => (response.ok ? response.json() : [])).catch(() => []),
-    fetch("series-midnight.json").then((response) => (response.ok ? response.json() : null)).catch(() => null),
+    fetch(file).then((response) => (response.ok ? response.json() : null)).catch(() => null),
   ]);
 
   const byId = new Map((Array.isArray(works) ? works : []).map((work) => [work.id, work]));
@@ -84,6 +85,7 @@ function latest(work) {
 }
 
 function altOf(work, stage) {
+  if (work.alt) return work.alt;
   return `${SITE}，${work.title_zh}，${stage.date}`;
 }
 
