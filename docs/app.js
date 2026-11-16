@@ -54,11 +54,16 @@ function chapterGroups(series, byId) {
   const groups = [];
   for (const sub of subs) {
     const chapters = Array.isArray(sub?.chapters) ? sub.chapters : [];
+    const display = sub?.display || {};
     chapters.forEach((chapter) => {
       const ids = Array.isArray(chapter?.workIds) ? chapter.workIds : [];
       const works = ids.map((id) => byId.get(id)).filter((work) => work && stagesOf(work).length);
       const grid = chapter?.id ? document.querySelector(`[data-chapter="${chapter.id}"]`) : null;
-      if (grid && works.length) render(grid, works);
+      if (grid) {
+        if (display.chapterNumber === false) grid.dataset.chapterNumber = "false";
+        if (display.workDate === false) grid.dataset.workDate = "false";
+        if (works.length) render(grid, works);
+      }
       groups.push(works);
     });
   }

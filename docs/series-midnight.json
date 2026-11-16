@@ -10,6 +10,10 @@
       "title": "碎布的對話",
       "title_en": "Conversations in Scraps",
       "intro": "同一批灰、橄欖綠與黑的碎布，被裁成不同的形狀，再一次次拼在一起。偶爾冒出一道橘、一角藍，像對話裡忽然亮起來的一句話。三張照片，是同一群布塊不同的排列。",
+      "display": {
+        "chapterNumber": false,
+        "workDate": false
+      },
       "chapters": [
         {
           "id": "scraps",
