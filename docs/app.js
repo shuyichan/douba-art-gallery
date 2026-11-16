@@ -39,7 +39,30 @@ async function init(file) {
     grid.replaceWith(note);
   }
 
-  wireLightbox(ordered.length ? ordered : readStatic(grid));
+  const groups = [];
+  if (ordered.length) groups.push(ordered);
+  for (const chapterWorks of chapterGroups(series, byId)) {
+    if (chapterWorks.length) groups.push(chapterWorks);
+  }
+  wireLightbox(groups.length ? groups : [readStatic(grid)]);
+}
+
+// A series owns its works, then subcollections. One chapter is a single chapter;
+// more than one chapter is multi-chapter. Each chapter lists work ids.
+function chapterGroups(series, byId) {
+  const subs = Array.isArray(series?.subcollections) ? series.subcollections : [];
+  const groups = [];
+  for (const sub of subs) {
+    const chapters = Array.isArray(sub?.chapters) ? sub.chapters : [];
+    chapters.forEach((chapter) => {
+      const ids = Array.isArray(chapter?.workIds) ? chapter.workIds : [];
+      const works = ids.map((id) => byId.get(id)).filter((work) => work && stagesOf(work).length);
+      const grid = chapter?.id ? document.querySelector(`[data-chapter="${chapter.id}"]`) : null;
+      if (grid && works.length) render(grid, works);
+      groups.push(works);
+    });
+  }
+  return groups;
 }
 
 function dateParts(date) {
@@ -171,12 +194,14 @@ function readStatic(grid) {
   }).filter((work) => work.stages[0].src);
 }
 
-function wireLightbox(works) {
+function wireLightbox(groups) {
+  const lists = (Array.isArray(groups) ? groups : []).filter((list) => list?.length);
   const lightbox = document.getElementById("lightbox");
   const lbImg = document.getElementById("lb-img");
   const lbSource = document.getElementById("lb-source");
-  if (!lightbox || !works.length) return;
+  if (!lightbox || !lists.length) return;
 
+  let works = lists[0];
   let current = 0;
   let stageIndex = 0;
   let opener = null;
@@ -218,6 +243,7 @@ function wireLightbox(works) {
   }
 
   function open(id, trigger) {
+    works = lists.find((list) => list.some((work) => work.id === id)) || lists[0];
     const index = works.findIndex((work) => work.id === id);
     if (index < 0) return;
     opener = trigger;
@@ -226,8 +252,8 @@ function wireLightbox(works) {
     document.documentElement.style.overflow = "hidden";
   }
 
-  document.getElementById("works")?.addEventListener("click", (event) => {
-    const button = event.target.closest(".work-open");
+  document.querySelector("main")?.addEventListener("click", (event) => {
+    const button = event.target.closest("button.work-open");
     if (!button) return;
     open(button.dataset.id, button);
   });
