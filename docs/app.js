@@ -62,6 +62,7 @@ function chapterGroups(series, byId) {
       if (grid) {
         if (display.chapterNumber === false) grid.dataset.chapterNumber = "false";
         if (display.workDate === false) grid.dataset.workDate = "false";
+        if (display.workTitle === false) grid.dataset.workTitle = "false";
         if (works.length) render(grid, works);
       }
       groups.push(works);
@@ -177,7 +178,7 @@ function syncTile(tile, work, index) {
   else img.loading = "lazy";
   tile.querySelector(".work-title").textContent = work.title_zh;
   tile.querySelector(".work-date").textContent = stage.date;
-  button.setAttribute("aria-label", `${work.title_zh}，${stage.date}`);
+  button.setAttribute("aria-label", work.alt || `${work.title_zh}，${stage.date}`);
 }
 
 function readStatic(grid) {

@@ -121,6 +121,7 @@ a.work-open { color: inherit; text-decoration: none; }
 .series-note + .works { margin-top: 28px; }
 .works[data-chapter-number="false"] .chapter-number { display: none; }
 .works[data-work-date="false"] .work-date { display: none; }
+.works[data-work-title="false"] .work-title { display: none; }
 .series-en {
   margin-top: 6px;
   color: var(--muted);
